@@ -7,7 +7,7 @@ import { widthPercentageToDP as wp ,heightPercentageToDP as hp } from 'react-nat
 
 
 const LoginScreen=({navigation})=>{
-    const [number,setNumber]=useState("");
+    const [number,setNumber]=useState("+91");
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.topcontainer}>
@@ -18,7 +18,7 @@ const LoginScreen=({navigation})=>{
                     <Input
                         value={number}
                         onChangeText={(text)=>setNumber(text)}
-                        maxLength={10}
+                        maxLength={13}
                         placeholder="Enter Your Mobile Number"
                         leftIcon={<MaterialIcon name="smartphone" size={hp(3)} color="#000000"/>}
                         inputContainerStyle={{
