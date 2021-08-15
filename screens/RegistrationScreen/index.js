@@ -20,11 +20,12 @@ const RegistrationScreen=({navigation})=>{
             value: 'Others'
         }
     ]
-    const [radio,setRadio]=useState("")
+    const [radio,setRadio]=useState("");
+    const [name,setName]=useState("");
+    const [email,setEmail]=useState("");
     handleRadioButton = (value) => {
         setRadio(value)
     }
-    const [number,setNumber]=useState("");
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.topcontainer}>
@@ -34,8 +35,8 @@ const RegistrationScreen=({navigation})=>{
                     <Input
                         label="Full Name"
                         labelStyle={{color:"#000000",marginBottom:hp(1),fontWeight:"400",fontSize:hp(2)}}
-                        value={number}
-                        onChangeText={(text)=>setNumber(text)}
+                        value={name}
+                        onChangeText={(text)=>setName(text)}
                         placeholder="Enter Your Full Name"
                         inputContainerStyle={{
                             alignSelf:'center',
@@ -62,8 +63,8 @@ const RegistrationScreen=({navigation})=>{
                     <Input
                         label="Email"
                         labelStyle={{color:"#000000",marginBottom:hp(1),fontWeight:"400",fontSize:hp(2)}}
-                        value={number}
-                        onChangeText={(text)=>setNumber(text)}
+                        value={email}
+                        onChangeText={(text)=>setEmail(text)}
                         placeholder="Enter Your Email"
                         inputContainerStyle={{
                             alignSelf:'center',
@@ -88,9 +89,9 @@ const RegistrationScreen=({navigation})=>{
                         }}
                     />
                     <View style={{alignItems:'center'}}>
-                        <RadioButton data={data} onSelect={handleRadioButton} styling={{ color: '#56CB01', size: 25 }}/>
+                        <RadioButton data={data} onSelect={handleRadioButton} styling={{ color: '#56CB01', size: hp(3.2) }}/>
                     </View>
-                <TouchableOpacity onPress={()=>navigation.navigate("otp",{'number':number})}>
+                <TouchableOpacity>
                     <View style={styles.item}>
                         <Text style={styles.btn}>CONTINUE</Text>
                     </View>

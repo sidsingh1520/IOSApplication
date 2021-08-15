@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import {View,Text,Image,Dimensions, KeyboardAvoidingView,Platform,TextInput,ScrollView,TouchableOpacity,SafeAreaView} from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import styles from '../ThankYouScreen/styles/styles';
@@ -11,7 +11,7 @@ const ThankYouScreen=({navigation})=>{
             </View>
             <View style={styles.bottom}>
                 <Text style={styles.txt}>Your account has been verified successfully !</Text>
-                <TouchableOpacity onPress={navigation.navigate("Register")} style={{marginTop:hp(5)}}>
+                <TouchableOpacity onPress={()=>navigation.navigate("Register")} style={{marginTop:hp(5)}}>
                     <View style={styles.item}>
                         <Text style={styles.btn}>Done</Text>
                     </View>
