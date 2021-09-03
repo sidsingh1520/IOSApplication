@@ -3,7 +3,8 @@ import {View,Text,Image,Dimensions, KeyboardAvoidingView,Platform,TextInput,Scro
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import styles from '../ThankYouScreen/styles/styles';
 
-const ThankYouScreen=({navigation})=>{
+const ThankYouScreen=({navigation,route})=>{
+    const phone=route.params.phone;
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.topcontainer}>
@@ -11,7 +12,7 @@ const ThankYouScreen=({navigation})=>{
             </View>
             <View style={styles.bottom}>
                 <Text style={styles.txt}>Your account has been verified successfully !</Text>
-                <TouchableOpacity onPress={()=>navigation.navigate("Register")} style={{marginTop:hp(5)}}>
+                <TouchableOpacity onPress={()=>navigation.navigate("Select",{'phone':phone })} style={{marginTop:hp(5)}}>
                     <View style={styles.item}>
                         <Text style={styles.btn}>Done</Text>
                     </View>

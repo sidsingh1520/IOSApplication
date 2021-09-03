@@ -49,15 +49,20 @@ const LoginScreen=({navigation})=>{
                             fontSize:wp(3.5),
                         }}
                     />
-                <TouchableOpacity onPress={()=>navigation.navigate("otp",{'number':number})}>
+                <TouchableOpacity
+                    onPress={()=>{
+                        number.length==13?navigation.navigate("otp",{'number':number}):alert("Please Enter Your Number")
+                        
+                    }}
+                >
                     <View style={styles.item}>
                         <Text style={styles.btn}>CONTINUE</Text>
                     </View>
                 </TouchableOpacity>
-                <View style={{alignItems:'center' ,flexDirection:'row',justifyContent:'center'}}>
+                {/* <View style={{alignItems:'center' ,flexDirection:'row',justifyContent:'center'}}>
                     <Text style={[styles.bottomtext]}>Already have account ?</Text>
                     <Text style={{color:"#56CB01",fontSize:hp(2)}}> Login</Text>
-                </View>
+                </View> */}
             </View>
         </SafeAreaView>
     )

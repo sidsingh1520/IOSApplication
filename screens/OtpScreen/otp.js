@@ -8,7 +8,7 @@ import auth from '@react-native-firebase/auth';
 const otp=({navigation,route})=>{
     const number  = route.params.number;
     const [otp,setOtp]=useState('');
-
+    const [confirm,setConfirm]=useState(null);
     useEffect(() => {
         signInWithPhoneNumber();
     }, []);
@@ -18,7 +18,7 @@ const otp=({navigation,route})=>{
             const confirmation = await auth().signInWithPhoneNumber(number);
             setConfirm(confirmation);
         } catch (e) {
-            alert(JSON.stringify(e));
+            alert(JSON.stringify("Error"));
             console.log(e);
         }
     }
@@ -26,6 +26,7 @@ const otp=({navigation,route})=>{
     async function confirmCode() {
         try {
             const pass = otp;
+            console.log(pass);
             const response = await confirm.confirm(pass);
             if (response) {
                 console.log(response);
@@ -39,14 +40,18 @@ const otp=({navigation,route})=>{
                 //    console.log(err);
                 //}
                 //===================================================
-                navigation.navigate('Thank',{'phone':response.user._user.phoneNumber });
+                if(response.additionalUserInfo.isNewUser==true){
+                    navigation.navigate('Register',{'phone':response.user._user.phoneNumber });
+                }else{
+                    navigation.navigate('Select');
+                }
+                
             }
         } catch (e) {
             alert(JSON.stringify(e));
             console.log(e)
         }
     }
-
     return(
         <View style={styles.container}>
             <Text style={styles.text}>Code has been sent to {number}</Text>
@@ -61,7 +66,7 @@ const otp=({navigation,route})=>{
                 codeInputHighlightStyle={styles.underlineStyleHighLighted}
                 onCodeFilled = {(code) => {setOtp(code)}}
             />
-            <Text style={[styles.text,{opacity:0.4}]}>Didn’t receive code? Resend again</Text>
+            {/* <Text style={[styles.text,{opacity:0.4}]}>Didn’t receive code? Resend again</Text> */}
             <TouchableOpacity onPress={()=>confirmCode()} style={{marginTop:hp(5)}}>
                 <View style={styles.item}>
                     <Text style={styles.btn}>Verify</Text>

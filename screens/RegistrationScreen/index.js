@@ -5,7 +5,12 @@ import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import { widthPercentageToDP as wp ,heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import styles from '../RegistrationScreen/styles/styles';
 import RadioButton from "../../components/RadioButtons/RadioButton";
-const RegistrationScreen=({navigation})=>{
+import instance from "../../api/connection";
+import axios from "axios";
+
+const RegistrationScreen=({navigation,route})=>{
+    const phone=route.params.phone;
+
     data = [
         {
             label: 'Male',
@@ -26,6 +31,21 @@ const RegistrationScreen=({navigation})=>{
     handleRadioButton = (value) => {
         setRadio(value)
     }
+    const Signup = async () => {
+        const data={
+            phone: phone,
+            name: name,
+            email: email,
+            gender:radio,
+        };
+        console.log(JSON.stringify(data));
+        try {
+            const resp = await instance.post('/student',  data )
+            .then(()=>navigation.navigate("Thank",{"phone":phone}))
+        } catch (err) {
+            console.log(err);
+        }
+    }
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.topcontainer}>
@@ -36,6 +56,7 @@ const RegistrationScreen=({navigation})=>{
                         label="Full Name"
                         labelStyle={{color:"#000000",marginBottom:hp(1),fontWeight:"400",fontSize:hp(2)}}
                         value={name}
+                        autoCorrect={false}
                         onChangeText={(text)=>setName(text)}
                         placeholder="Enter Your Full Name"
                         inputContainerStyle={{
@@ -64,6 +85,7 @@ const RegistrationScreen=({navigation})=>{
                         label="Email"
                         labelStyle={{color:"#000000",marginBottom:hp(1),fontWeight:"400",fontSize:hp(2)}}
                         value={email}
+                        autoCorrect={false}
                         onChangeText={(text)=>setEmail(text)}
                         placeholder="Enter Your Email"
                         inputContainerStyle={{
@@ -91,15 +113,19 @@ const RegistrationScreen=({navigation})=>{
                     <View style={{alignItems:'center'}}>
                         <RadioButton data={data} onSelect={handleRadioButton} styling={{ color: '#56CB01', size: hp(3.2) }}/>
                     </View>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={()=>{
+                        Signup()
+                    }}
+                >
                     <View style={styles.item}>
                         <Text style={styles.btn}>CONTINUE</Text>
                     </View>
                 </TouchableOpacity>
-                <View style={{alignItems:'center' ,flexDirection:'row',justifyContent:'center'}}>
+                {/* <View style={{alignItems:'center' ,flexDirection:'row',justifyContent:'center'}}>
                     <Text style={[styles.bottomtext]}>Already have account ?</Text>
                     <Text style={{color:"#56CB01",fontSize:hp(2)}}> Login</Text>
-                </View>
+                </View> */}
             </View>
         </SafeAreaView>
     )
